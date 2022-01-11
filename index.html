@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="./index.js"></script>
+    <style>
+        a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+    </style>
+</head>
+
+<body>
+    <form name="input">
+        <label for="byteOffset">input a number for byte Offset</label>
+        <br>
+        <input type="number" name="byteOffset" id="byteOffset" value="1">
+        <br>
+        <label for="file">input a file or files of .bundle</label>
+        <br>
+        <input type="file" name="file" id="file" accept=".bundle" required>
+        <br>
+        <button type="submit" title="submit button">Submit</button>
+    </form>
+</body>
+
+</html>
