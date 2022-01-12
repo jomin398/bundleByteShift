@@ -12,18 +12,54 @@ var main;
                 url: null
             };
         };
-        mylog(str, delLast) {
+        mylog(str, delLast, html) {
             let consoleView = document.body.querySelector('ul');
             if (!delLast) {
-                consoleView.appendChild((() => {
-                    let p = document.createElement('li');
+                let p = document.createElement('li');
+                if (!html) {
                     p.innerText = str;
+                }
+                consoleView.appendChild(p);
+                if (html) {
                     return p;
-                })());
+                }
             } else {
-                consoleView.lastChild.innerText = str;
+                if (!html) {
+                    consoleView.lastChild.innerText = str;
+                } else if (html) {
+                    return consoleView.lastChild;
+                }
             }
         };
+        num2hex(n) {
+            const h = '0123456789ABCDEF';
+            return h[n >> 4] + h[n & 15]
+        };
+
+        hexTable = {
+            s: this,
+            el: null,
+            init: function () {
+                const t = document.createElement('table');
+                t.className = 'hexTable';
+                let l = 16;
+                for (let i = 0; i < 2; i++) {
+                    const w = document.createElement('tr');
+                    for (let j = 0; j < l; j++) {
+                        let d = document.createElement(i == 0 ? 'th' : 'td');
+                        d.innerText = i == 0 ? this.s.num2hex(j) : '';
+                        w.appendChild(d);
+                    }
+                    t.appendChild(w);
+                }
+                this.el = t;
+                return t;
+            },
+            add: function (d) {
+                const c = this.el.childNodes[1].childNodes;
+                new Uint8Array(d).forEach((v, i) => { c[i].innerText = this.s.num2hex(v); });
+            }
+        }
         init() {
             this.form = document.querySelector('form[name=input]');
             if (this.seviceMulti) {
@@ -59,7 +95,10 @@ var main;
                     self.value.data = e.target.result.slice(offset);
                     self.value.dataB = e.target.result.slice(0, chunk_size - 1);
                     self.value.dataA = self.value.data.slice(0, chunk_size - 1);
-                    self.mylog(`> origin of ${chunk_size} bytes of fileData :"${dec.decode(self.value.dataB)}"`);
+                    self.mylog(`> origin of ${chunk_size} bytes`);
+                    self.mylog(`  fileData :"${dec.decode(self.value.dataB)}"`)
+                    self.mylog(null, false, true).appendChild(self.hexTable.init());
+                    self.hexTable.add(e.target.result.slice(0, chunk_size));
                     self.mylog(`> preview of ${chunk_size} bytes of edited fileData :"${dec.decode(self.value.dataA)}"`);
                     //console.log(self.value.data); // ArrayBuffer 객체
                     const mergedBlob = new Blob(
