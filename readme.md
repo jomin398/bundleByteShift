@@ -13,11 +13,10 @@ This project is licensed as **MIT License**.
 
 # How to Use
 1. input a **Number** for byte shift. **(Optional)**
-2. input a `.bundle` file.
+2. input a `.bundle` file. [for example file](./temp.bundle)
 3. press **Submit**
-4. press **Download**
-5. press **Page Reload** for page Reload to restart whole again.
+4. press **Download Then Page Reload** for Download and page Reload.
 
 ### TODO
 - [x] main function.
-- [ ] display hex on table. (addtion)
+- [x] display hex on table. (addtion)
